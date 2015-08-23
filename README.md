@@ -25,7 +25,7 @@ and for workflow as "pending", "completed", "cancelled"
 
 **API Doc:**
 Api document is available at [/api-docs](http://housetrack.herokuapp.com/api-docs) and [api-docs/properties](http://housetrack.herokuapp.com/api-docs/properties). 
-Currently, thr swagger-ui is not included so the [online-swagger-ui](http://petstore.swagger.io/) can be used to demonstrate our Api-doc. The api-doc url should be set as http://housetrack.herokuapp.com/api-docs/properties, then Explore button should be clicked.
+Currently, thr swagger-ui is not included so the [online-swagger-ui](http://petstore.swagger.io/) can be used to demonstrate our Api-doc. The api-doc url should be set as http://housetrack.herokuapp.com/api-docs, then Explore button should be clicked.
 The following screenshots shows the API documents and the test.
 
 *Entering the api-docs uri in Swagger Ui and clicking on Explore*

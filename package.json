@@ -10,6 +10,7 @@
   "dependencies": {
     "restify": "^4.0.0",
     "swagger-node-restify": "^0.1.2",
-    "tv4": "^1.2.3"
+    "tv4": "^1.2.3",
+    "underscore": "^1.8.3"
   }
 }

@@ -58,7 +58,7 @@ swagger.addPost({
 });
 
 swagger.configureSwaggerPaths("", "/api-docs", "") 
-swagger.configure('http://housetrack.herokuapp.com' + process.env.PORT, '1.0.0')
+swagger.configure('http://housetrack.herokuapp.com', '1.0.0')
 
 console.log('Listening for Rest requests on: ' + process.env.PORT);
 server.listen(process.env.PORT || 9999);

@@ -1,6 +1,7 @@
 ﻿var restify = require('restify'),
     validator = require('tv4'),
     _ = require('underscore'),
+    swagger = require('swagger-node-restify'),
     payload_schema = require('./schemas/payload.js');
 
 var server = restify.createServer({
@@ -8,13 +9,9 @@ var server = restify.createServer({
 });
 server.use(restify.bodyParser());
 server.use(restify.queryParser());
-server.post({
-    name: 'filter',
-    path: '/rest/properties?filters',
-    version: "1.0.0"
-}, function (req, res, next) {
-    console.log('req.body:' + req.body);
-    var body = JSON.parse(req.body);
+
+var action = function (req, res, next) {
+    var body = req.body;
     var valid = validator.validateResult(body, payload_schema);
     if (!valid.valid) {
         res.send(valid);
@@ -31,10 +28,37 @@ server.post({
                 'workflow' : property.workflow
             })
     });
-  
+    
     var respopnse = { 'response': result };
     res.send(respopnse);
-}
-);
+};
+
+server.post({
+    name: 'filter',
+    path: '/properties?filters',
+    version: "1.0.0"
+}, action);
+
+swagger.addModels({ models: { payload: payload_schema } });
+swagger.setAppHandler(server);
+
+swagger.addPost({
+    'spec' : {
+        'path': '/properties',
+        'method': 'POST',
+        'summary': 'Returns the list of properties ',
+        'params': [
+            swagger.queryParam('filters', 'Filter the properties', 'string'),
+            swagger.bodyParam('payload', 'The JSON data of the properties enveloped in payload', 'string')
+        ],
+        'responseClass': 'string',
+        'nickname': 'filterProperties'
+    },
+    'action': action
+});
+
+swagger.configureSwaggerPaths("", "/api-docs", "") 
+swagger.configure('http://housetrack.herokuapp.com' + process.env.PORT, '0.1')
+
 console.log('Listening for Rest requests on: ' + process.env.PORT);
 server.listen(process.env.PORT || 9999);
